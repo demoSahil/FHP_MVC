@@ -1,0 +1,105 @@
+﻿@model FHP_ValueObject.cls_Employee_VO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>New</title>
+    @Styles.Render("~/Content/css/editViewStyle.css")
+</head>
+<body>
+    <div class="header">
+        <h1>FHP Employee Form</h1>
+    </div>
+
+
+    <div class="container">
+        @using (Html.BeginForm("New", "Home", FormMethod.Post))
+        {
+
+            <label for="Prefix">Serial Number:</label>
+            @Html.TextBoxFor(model => model.SerialNo, new { @class = "form-control", id="SerialNo" })<br>
+
+            <label for="Prefix">Prefix:</label>
+            @Html.TextBoxFor(model => model.Prefix, new { @class = "form-control" })<br>
+
+            <label for="FirstName">First Name:</label>
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })<br>
+
+            <label for="MiddleName">Middle Name:</label>
+            @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })<br>
+
+            <label for="LastName">Last Name:</label>
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })<br>
+
+            <label for="DOB">DOB:</label>
+            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control" })<br>
+
+            <label for="CurrentAddress">Current Address:</label>
+            @Html.TextBoxFor(model => model.CurrentAddress, new { @class = "form-control" })<br>
+
+            <label for="Education">Education:</label>
+            @Html.TextBoxFor(model => model.Education, new { @class = "form-control" })<br>
+
+            <label for="CurrentCompany">Current Company:</label>
+            @Html.TextBoxFor(model => model.CurrentCompany, new { @class = "form-control" })<br>
+
+
+            <label for="JoiningDate">Joining Date:</label>
+            @Html.TextBoxFor(model => model.JoiningDate, new { @class = "form-control" })<br>
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        }
+    </div>
+
+    <link href="~/Content/bootstrap-utilities.min.css" rel="stylesheet" />
+
+
+
+    <script>
+
+        let serialNo = document.getElementById('SerialNo');
+
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            console.log(urlParams);
+            const action = urlParams.get('buttonClicked');
+            console.log(action);
+
+            if (action === 'New' || action === 'update') {
+
+                if (action === 'update') {
+                    document.getElementById('edit').classList.remove('hidden');
+                    document.getElementById('clear').classList.remove('hidden');
+                }
+
+                else {
+
+                    serialNo.value = urlParams.get('serialNo');
+                    serialNo.readOnly = true;
+                    document.getElementById('add').classList.remove('hidden');
+                    document.getElementById('edit').classList.remove('hidden');
+                    document.getElementById('clear').classList.remove('hidden');
+
+                }
+            } else if (action === 'view') {
+
+                document.getElementById('add').classList.add('hidden');
+                document.getElementById('edit').classList.add('hidden');
+                document.getElementById('clear').classList.add('hidden');
+                document.getElementById('first').classList.remove('hidden');
+                document.getElementById('previous').classList.remove('hidden');
+                document.getElementById('next').classList.remove('hidden');
+                document.getElementById('last').classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

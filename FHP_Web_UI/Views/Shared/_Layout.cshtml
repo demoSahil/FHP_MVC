@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")
+
+</head>
+<body>
+    <header>
+        <h1>File Handling Program</h1>
+    </header>
+    <section id="menuBar">
+        <nav class="Navbar">
+            <ul>
+                <li> <a href="@Url.Action("New", "Home", new{buttonClicked="New",serialNo=ViewBag.LastSerialNo})"> New</a></li>
+                <li><a href="@Url.Action("Update", "Home", new {buttonClicked="Update"})">Update</a></li>
+                <li><a href="@Url.Action("View", "Home", new {buttonClicked="View"})">View</a></li>
+                <li><a href="#" id="delete-btn">Delete</a></li>
+                <li><a href="aboutUs.html">About</a></li>
+                <li><a onclick="ClearSearchAndFilter()">Clear Search/Filter</a></li>
+            </ul>
+
+            <div class="SearchBox">
+                <input class="searchBox" type="search" placeholder="Enter data To Search"/>
+            </div>
+        </nav>
+    </section>
+    <div class="body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            @* <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

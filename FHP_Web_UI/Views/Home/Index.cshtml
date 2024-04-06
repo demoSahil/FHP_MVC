@@ -1,0 +1,81 @@
+﻿@using FHP_ValueObject
+@using Resources
+
+@model List<cls_Employee_VO>
+
+@{
+    ViewBag.Title = "Home Page";
+    var resources = ViewBag.Model as Resource;
+
+    if (Model.Count > 0)
+    {
+
+        ViewBag.LastSerialNo = Model[Model.Count - 1].SerialNo + 1;
+    }
+
+    else
+    {
+        ViewBag.LastSerialNo = 1;
+
+    }
+
+
+}
+@Styles.Render("~/Content/css/indexStyle.css")
+
+
+
+<main>
+    <table id="dataTable" width="100%">
+        <thead style="cursor:pointer">
+            <tr>
+
+                <th><input type="checkbox"  id="master-CheckBox" onclick="SelectAllCheckbox()"/></th>
+                <th>S.No <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>Prefix <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>First Name <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>Middle Name <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>Last Name <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>Current Address <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>DOB <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>Education <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>Company Name <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+                <th>Joining Date <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
+            </tr>
+        </thead>
+        <tr id="filterRow">
+            <td></td>
+            <td><input type="search"/></td>
+            <td><input type="search"/></td>
+            <td><input type="search"/></td>
+            <td><input type="search" /></td>
+            <td><input type="search" /></td>
+            <td><input type="search" /></td>
+            <td><input type="search" /></td>
+            <td><input type="search" /></td>
+            <td><input type="search" /></td>
+            <td><input type="search" /></td>
+        </tr>`
+        <tbody id="tableData">
+
+            @foreach (cls_Employee_VO obj in Model.OrderBy(t => t.SerialNo))
+            {
+                <tr>
+                    <td><input type="checkbox" class="selectedRows" id="@obj.SerialNo"></td>
+                    <td>@obj.SerialNo</td>
+                    <td>@obj.Prefix</td>
+                    <td>@obj.FirstName</td>
+                    <td>@obj.MiddleName</td>
+                    <td>@obj.LastName</td>
+                    <td>@obj.CurrentAddress</td>
+                    <td>@obj.DOB.ToShortDateString()</td>
+                    <td>@resources.GetQualificationDescriptionAtIndex(obj.Education)</td>
+                    <td>@obj.CurrentCompany</td>
+                    <td>@obj.JoiningDate.ToShortDateString()</td>
+                </tr>
+            }
+
+    </table>
+    @Scripts.Render("~/Content/Js/HomePage.js")
+
+</main>
