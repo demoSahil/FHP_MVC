@@ -20,7 +20,7 @@ namespace FHP_BL
         /// Property Injection 
         /// </summary>
         private IDataHandlerEmployee EmployeeDataObject
-        {
+        {   
             set
             {
                 this.dataHandlerEmp = value;

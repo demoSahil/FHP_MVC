@@ -12,13 +12,3 @@ C:\Users\sahil\source\repos\FHP Application\FHP__INIT\bin\Debug\FHP_DL.pdb
 C:\Users\sahil\source\repos\FHP Application\FHP__INIT\bin\Debug\Resources.pdb
 C:\Users\sahil\source\repos\FHP Application\FHP__INIT\bin\Debug\FHP_Resources.pdb
 C:\Users\sahil\source\repos\FHP Application\FHP__INIT\bin\Debug\FHP_BL.pdb
-C:\Users\sahil\source\repos\FHP Application\bin\FHP__INIT.exe.config
-C:\Users\sahil\source\repos\FHP Application\bin\FHP__INIT.exe
-C:\Users\sahil\source\repos\FHP Application\bin\FHP__INIT.pdb
-C:\Users\sahil\source\repos\FHP Application\FHP__INIT\obj\Debug\FHP__INIT.csproj.AssemblyReference.cache
-C:\Users\sahil\source\repos\FHP Application\FHP__INIT\obj\Debug\FHP__INIT.Properties.Resources.resources
-C:\Users\sahil\source\repos\FHP Application\FHP__INIT\obj\Debug\FHP__INIT.csproj.GenerateResource.cache
-C:\Users\sahil\source\repos\FHP Application\FHP__INIT\obj\Debug\FHP__INIT.csproj.CoreCompileInputs.cache
-C:\Users\sahil\source\repos\FHP Application\FHP__INIT\obj\Debug\FHP__INIT.exe
-C:\Users\sahil\source\repos\FHP Application\FHP__INIT\obj\Debug\FHP__INIT.pdb
-C:\Users\sahil\source\repos\FHP Application\FHP__INIT\obj\Debug\FHP__INIT.csproj.Up2Date

@@ -56,5 +56,11 @@ button:hover {
     display: none;
 }
 .visible {
-    display: block;
+    display: flex;
+}
+
+.navigations{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
 }

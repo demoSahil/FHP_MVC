@@ -13,6 +13,14 @@ namespace FHP_Web_UI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Define a custom route for the "Update" action
+            routes.MapRoute(
+                name: "Update",
+                url: "Home/Update/{buttonClicked}",
+                defaults: new { controller = "Home", action = "Update" }
+            );
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

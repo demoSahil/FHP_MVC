@@ -1,0 +1,75 @@
+﻿
+@model FHP_ValueObject.cls_Employee_VO
+
+@{
+    var action = ViewData["Action"] as string ?? "New";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>New</title>
+    @Styles.Render("~/Content/css/editViewStyle.css")
+</head>
+<body>
+    <div class="header">
+        <h1>FHP Employee Form</h1>
+    </div>
+
+    <div class="container">
+        @using (Html.BeginForm(action, "Home", FormMethod.Post, new { id = "employee-details-form" }))
+        {
+
+            <label for="Prefix">Serial Number:</label>
+            @Html.TextBoxFor(model => model.SerialNo, new { @class = "form-control", id = "SerialNo" })<br>
+
+            <label for="Prefix">Prefix:</label>
+            @Html.TextBoxFor(model => model.Prefix, new { @class = "form-control" })<br>
+
+            <label for="FirstName">First Name:</label>
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })<br>
+
+            <label for="MiddleName">Middle Name:</label>
+            @Html.TextBoxFor(model => model.MiddleName, new { @class = "form-control" })<br>
+
+            <label for="LastName">Last Name:</label>
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })<br>
+
+            <label for="DOB">DOB:</label>
+            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control" })<br>
+
+            <label for="CurrentAddress">Current Address:</label>
+            @Html.TextBoxFor(model => model.CurrentAddress, new { @class = "form-control" })<br>
+
+            <label for="Education">Education:</label>
+            @Html.TextBoxFor(model => model.Education, new { @class = "form-control" })<br>
+
+            <label for="CurrentCompany">Current Company:</label>
+            @Html.TextBoxFor(model => model.CurrentCompany, new { @class = "form-control" })<br>
+
+
+            <label for="JoiningDate">Joining Date:</label>
+            @Html.TextBoxFor(model => model.JoiningDate, new { @class = "form-control" })<br>
+
+
+            <!-- Buttons -->
+            <div class="navigations">
+                <button id="add" type="submit" class="btn btn-primary hidden">Add</button>
+                <button id="edit" type="submit" class="btn btn-primary hidden">Edit</button>
+                <button id="clear" type="button" class="btn btn-danger hidden">Clear</button>
+                <button id="first" type="button" class="btn btn-secondary hidden">First</button>
+                <button id="previous" type="button" class="btn btn-secondary hidden">Previous</button>
+                <button id="next" type="button" class="btn btn-secondary hidden">Next</button>
+                <button id="last" type="button" class="btn btn-secondary hidden">Last</button>
+            </div>
+
+        }
+    </div>
+
+    <link href="~/Content/bootstrap-utilities.min.css" rel="stylesheet" />
+    @Scripts.Render("~/Content/Js/editView.js")
+</body>
+</html>

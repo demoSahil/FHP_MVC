@@ -1,6 +1,7 @@
 ﻿
 using FHP_BL;
 using FHP_ValueObject;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace FHP_Web_UI.Controllers
     {
         public ActionResult Index()
         {
+            Resource resource = new Resource();
+            Session["ResourceObject"] = resource;
             cls_User_VO user_VO= new cls_User_VO();
 
             return View(user_VO);
