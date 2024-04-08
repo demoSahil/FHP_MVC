@@ -113,7 +113,7 @@ deleteButton.addEventListener('click', () => {
             idSelectedByUser.forEach(serialNo => {
                 DeleteData(serialNo);
             });
-        } 
+        }
 
         else {
             console.error('Error deleting item:', xhr.statusText);
@@ -226,10 +226,10 @@ function RenderSortedData(sortedData) {
             '<td>' + item.MiddleName + '</td>' +
             '<td>' + item.LastName + '</td>' +
             '<td>' + item.CurrentAddress + '</td>' +
-            '<td>' + formatDate(item.DOB) + '</td>' + 
+            '<td>' + formatDate(item.DOB) + '</td>' +
             '<td>' + item.Education + '</td>' +
             '<td>' + item.CurrentCompany + '</td>' +
-            '<td>' + formatDate(item.JoiningDate) + '</td>' + 
+            '<td>' + formatDate(item.JoiningDate) + '</td>' +
             '</tr>';
     });
 
@@ -325,4 +325,57 @@ document.getElementById('view-link').onclick = () => {
     event.preventDefault();
     var url = "/Home/Pagination?buttonClicked=View&id=" + idSelectedByUser[0];
     window.location.href = url;
+}
+
+const searchBar = document.getElementById('search-bar');
+let employeesData = [];
+GetEmployeesData();
+searchBar.addEventListener('input', () => {
+    let valuesToSearch = searchBar.value;
+    let foundEmployees = [];
+    for (let i = 0; i < employeesData.length; i++) {
+        let employee = employeesData[i];
+        let found = false;
+
+        for (let property in employee) {
+
+            if ((property == 'DOB' || property == 'JoiningDate')) {
+                if (formatDate(employee[property]).toString().includes(valuesToSearch.toLowerCase())) {
+                    found = true;
+                    break;
+                }
+            }
+
+            else if (employee[property].toString().toLowerCase().includes(valuesToSearch.toLowerCase())) {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            foundEmployees.push(employee);
+        }
+    }
+    console.log(foundEmployees);
+    RenderSortedData(foundEmployees);
+});
+
+function GetEmployeesData() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/Home/EmployeesData', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('employees List Retrieved Successfully');
+                employeesData = JSON.parse(xhr.responseText);
+                console.log(employeesData);
+            }
+
+            else {
+                console.error('Error', xhr.statusText);
+            }
+        }
+    };
+
+    xhr.send();
 }
