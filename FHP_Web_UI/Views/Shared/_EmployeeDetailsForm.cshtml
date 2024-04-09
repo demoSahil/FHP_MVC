@@ -39,20 +39,30 @@
             @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })<br>
 
             <label for="DOB">DOB:</label>
-            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control" })<br>
+            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control"})<br>
 
             <label for="CurrentAddress">Current Address:</label>
             @Html.TextBoxFor(model => model.CurrentAddress, new { @class = "form-control" })<br>
 
             <label for="Education">Education:</label>
-            @Html.TextBoxFor(model => model.Education, new { @class = "form-control" })<br>
+            @Html.DropDownListFor(model => model.Education,
+                           Enum.GetValues(typeof(Resources.Resource.QualificationEnum))
+                               .Cast<Resources.Resource.QualificationEnum>()
+                               .Select(e => new SelectListItem
+                               {
+                                   Text = e.ToString(),
+                                   Value = ((byte)e).ToString()
+                               }),
+                           "Select",
+                           new { @class = "form-control" })
+
 
             <label for="CurrentCompany">Current Company:</label>
             @Html.TextBoxFor(model => model.CurrentCompany, new { @class = "form-control" })<br>
 
 
             <label for="JoiningDate">Joining Date:</label>
-            @Html.TextBoxFor(model => model.JoiningDate, new { @class = "form-control" })<br>
+            @Html.TextBoxFor(model => model.JoiningDate, new { @class = "form-control"})<br>
 
 
             <!-- Buttons -->

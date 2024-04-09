@@ -34,14 +34,14 @@ let currentId;
 let dataRetrieved = false;
 
 
-function disableInputFields(fields) {
+function disableInputFields(fields, flag) {
     //-------------Disabling Fields In case of View
     for (let i = 0; i < fields.length; i++) {
         console.log("in for loop");
         if (fields[i].tagName === 'INPUT' || fields[i].tagName === 'input') {
-            fields[i].disabled = true;
+            fields[i].readOnly = flag;
 
-            console.log("disabled" + fields[i]);
+            console.log("disabled-" + flag + fields[i]);
         }
     }
 }
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
         next.classList.add('visible');
         last.classList.add('visible');
 
-        disableInputFields(fieldsInForm);
+        disableInputFields(fieldsInForm,true);
 
         //-------------Getting Data From XML
 
@@ -139,16 +139,19 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function SetValuesIntoFields(object) {
+    disableInputFields(fieldsInForm, false);
     serialNoField.value = object.SerialNo;
     prefixField.value = object.Prefix;
     firstNameField.value = object.FirstName;
     middleNameField.value = object.MiddleName;
     lastNameField.value = object.LastName;
-    DOBField.value = formatDate(object.DOB);
+    console.log('hello' + DOBField.value);
+    DOBField.textContent= formatDate(object.DOB);
     currentAddressField.value = object.CurrentAddress;
     educationField.value = object.Education;
     currentCompanyField.value = object.CurrentCompany;
     joiningDateField.value = formatDate(object.JoiningDate);
+    disableInputFields(fieldsInForm, true);
 }
 
 function formatDate(dateString) {

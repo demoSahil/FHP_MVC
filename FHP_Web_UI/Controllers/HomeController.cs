@@ -41,7 +41,7 @@ namespace FHP_Web_UI.Controllers
                     isUserValid = false;
                 }
             }
-
+            
             if (isUserValid)
             {
                 return Json(new { success = true });
@@ -99,7 +99,13 @@ namespace FHP_Web_UI.Controllers
         public ActionResult New(cls_Employee_VO employee)
         {
             cls_DataProcessing_BL obj_Employee_BL = HttpContext.Application["BLObject_Employee"] as cls_DataProcessing_BL;
-            obj_Employee_BL.SaveIntoDB(employee, Session["ResourceObject"] as Resource);
+            if (obj_Employee_BL.SaveIntoDB(employee, Session["ResourceObject"] as Resource))
+            {
+                TempData["message"] = "Employee Added Successfully";
+                return RedirectToAction("Index");
+            }
+
+            TempData["message"] = "Employee Not Added Successfully";
             return RedirectToAction("Index");
         }
 
@@ -233,6 +239,7 @@ namespace FHP_Web_UI.Controllers
                 return View("Error");
             }
             ViewData["Action"] = "Update";
+
             return View("_EmployeeDetailsForm", empToUpdate);
         }
 
@@ -246,7 +253,13 @@ namespace FHP_Web_UI.Controllers
         {
             cls_DataProcessing_BL obj_Employee_BL = HttpContext.Application["BLObject_Employee"] as cls_DataProcessing_BL;
             updatedEmp.editMode = 1;
-            if (obj_Employee_BL.SaveIntoDB(updatedEmp, Session["ResourceObject"] as Resource)) return RedirectToAction("Index");
+            if (obj_Employee_BL.SaveIntoDB(updatedEmp, Session["ResourceObject"] as Resource))
+            {
+                TempData["message"] = "Employee Updated Successfully";
+                return RedirectToAction("Index");
+            }
+
+            TempData["message"] = "Employee Not Updated ";
             return View();
 
         }
@@ -291,7 +304,7 @@ namespace FHP_Web_UI.Controllers
         {
             cls_XMLHelper xmlHelper = Session["xmlHelperObject"] as cls_XMLHelper;
             List<cls_Employee_VO> employeesList = xmlHelper.ParseEmployeesFromXML(Session["xmlFilePath"] as string);
-            return Json(employeesList,JsonRequestBehavior.AllowGet);
+            return Json(employeesList, JsonRequestBehavior.AllowGet);
         }
     }
 }

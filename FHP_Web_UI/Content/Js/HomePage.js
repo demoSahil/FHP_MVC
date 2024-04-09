@@ -112,6 +112,7 @@ deleteButton.addEventListener('click', () => {
 
             idSelectedByUser.forEach(serialNo => {
                 DeleteData(serialNo);
+                toastr.success('Employee Deleted Successfully', 'Success');
             });
         }
 
@@ -178,7 +179,7 @@ function SortAscending(ColumnName) {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const sortedData = JSON.parse(xhr.responseText);
-                RenderSortedData(sortedData);
+                RenderData(sortedData);
             } else {
                 console.error('Error:', xhr.statusText);
             }
@@ -198,7 +199,7 @@ function SortDescending(ColumnName) {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const sortedData = JSON.parse(xhr.responseText);
-                RenderSortedData(sortedData);
+                RenderData(sortedData);
             } else {
                 console.error('Error:', xhr.statusText);
             }
@@ -211,12 +212,12 @@ function SortDescending(ColumnName) {
  * Render the sorted Data in UI
  * @param {An Array that holds sorted Data} sortedData
  */
-function RenderSortedData(sortedData) {
+function RenderData(data) {
     let tableData = document.getElementById('tableData');
     let str = "";
     tableData.innerHTML = "";
 
-    sortedData.forEach(function (item) {
+    data.forEach(function (item) {
 
         str += '<tr>' +
             `<td><input type="checkbox" class="selectedRows" id=\"${item.SerialNo}\"` + '/></td>' +
@@ -287,7 +288,7 @@ function ApplyFilter() {
                 console.log('Searching completed successfully');
                 const filteredData = JSON.parse(xhr.responseText);
                 console.log(filteredData);
-                RenderSortedData(filteredData);
+                RenderData(filteredData);
             } else {
                 console.error('Error:', xhr.statusText);
             }
@@ -303,6 +304,8 @@ function ClearSearchAndFilter() {
     searchBoxes.forEach((searchBox) => {
         searchBox.value = "";
     });
+
+    searchBar.value = "";
     ApplyFilter();
 }
 
@@ -356,8 +359,7 @@ searchBar.addEventListener('input', () => {
             foundEmployees.push(employee);
         }
     }
-    console.log(foundEmployees);
-    RenderSortedData(foundEmployees);
+    RenderData(foundEmployees);
 });
 
 function GetEmployeesData() {

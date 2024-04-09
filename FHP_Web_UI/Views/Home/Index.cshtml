@@ -23,6 +23,26 @@
 }
 @Styles.Render("~/Content/css/indexStyle.css")
 
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            if ("@TempData["message"]" != null && "@TempData["message"]" != "")
+            {
+                if ("@TempData["message"]" != "Not")
+                {
+                    toastr.success("@TempData["message"]", 'Success');
+                }
+                else
+                {
+                    toastr.error("@TempData["message"]", 'Failed');
+                }
+            }
+            });
+    </script>
+}
+
 
 
 <main>
@@ -30,7 +50,7 @@
         <thead style="cursor:pointer">
             <tr>
 
-                <th><input type="checkbox"  id="master-CheckBox" onclick="SelectAllCheckbox()"/></th>
+                <th><input type="checkbox" id="master-CheckBox" onclick="SelectAllCheckbox()" /></th>
                 <th>S.No <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
                 <th>Prefix <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
                 <th>First Name <i class="sort-icon arrow-up">⇑</i><i class="sort-icon arrow-down">⇓</i></th>
@@ -45,9 +65,9 @@
         </thead>
         <tr id="filterRow">
             <td></td>
-            <td><input type="search"/></td>
-            <td><input type="search"/></td>
-            <td><input type="search"/></td>
+            <td><input type="search" /></td>
+            <td><input type="search" /></td>
+            <td><input type="search" /></td>
             <td><input type="search" /></td>
             <td><input type="search" /></td>
             <td><input type="search" /></td>
@@ -75,7 +95,9 @@
                 </tr>
             }
 
+
     </table>
+
     @Scripts.Render("~/Content/Js/HomePage.js")
 
 </main>
