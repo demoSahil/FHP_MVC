@@ -27,28 +27,33 @@ namespace FHP_Web_UI.Controllers
         [HttpPost]
         public ActionResult Delete(string[] ids)
         {
-            bool isUserValid = true; ;
+            bool isUserValid = true;
+            bool userCanDelete = false;
             cls_DataProcessing_BL obj_Employee_BL = HttpContext.Application["BLObject_Employee"] as cls_DataProcessing_BL;
-            List<cls_Employee_VO> x = Session["employeeList"] as List<cls_Employee_VO>;
+            Dictionary<string, bool> userPermissions = Session["UserPermissions"] as Dictionary<String, bool>;
+            userCanDelete = userPermissions["CanDelete"];
 
-            foreach (string serialNo in ids)
+            if (userCanDelete)
             {
-                long serial = long.Parse(serialNo);
-                cls_Employee_VO empToBeDelete = obj_Employee_BL.GetEmployees().Find(s => s.SerialNo == serial);
-
-                if (!obj_Employee_BL.DeleteEmployee(empToBeDelete, Session["ResourceObject"] as Resource))
+                foreach (string serialNo in ids)
                 {
-                    isUserValid = false;
+                    long serial = long.Parse(serialNo);
+                    cls_Employee_VO empToBeDelete = obj_Employee_BL.GetEmployees().Find(s => s.SerialNo == serial);
+
+                    if (!obj_Employee_BL.DeleteEmployee(empToBeDelete, Session["ResourceObject"] as Resource))
+                    {
+                        isUserValid = false;
+                    }
                 }
             }
-            
-            if (isUserValid)
-            {
-                return Json(new { success = true });
-            }
+
+            if (isUserValid && userCanDelete) return Json(new { success = true }); // In case of Success
+
             else
             {
-                return Json(new { success = false });
+                if (!userCanDelete) return Json(new { success = false, errorMessage = "User do not have permission To Delete" });
+
+                else return Json(new { success = false, errorMessage = "Something Went Wrong! Try Again" });
             }
         }
 
@@ -58,7 +63,6 @@ namespace FHP_Web_UI.Controllers
         /// <returns> A view that represents employee information in from of table</returns>
         public ActionResult Index()
         {
-
             cls_DataProcessing_BL obj_Employee_BL = HttpContext.Application["BLObject_Employee"] as cls_DataProcessing_BL;
 
             // Getting all the employees list
@@ -66,11 +70,12 @@ namespace FHP_Web_UI.Controllers
 
             var model = new
             {
-                Resources = Session["ResourceObject"] as Resource // Adding resources as a dynamic property
+                Resources = Session["ResourceObject"] as Resource
             };
 
             ViewBag.Model = Session["ResourceObject"] as Resource;
 
+            //-Doubt
             cls_XMLHelper xMLHelper = new cls_XMLHelper();
             Session["xmlFilePath"] = Server.MapPath("~/App_Data/Employees.xml");
             Session["xmlHelperObject"] = xMLHelper;

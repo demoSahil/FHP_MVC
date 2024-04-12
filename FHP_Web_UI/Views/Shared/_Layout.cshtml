@@ -8,31 +8,24 @@
 
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")
-    @* @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/bootstrap")
+         @Styles.Render("~/Content/css")
+            @Scripts.Render("~/bundles/bootstrap")
 
         @Styles.Render("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css")
 
         <script src="~/Scripts/jquery-1.10.2.min.js"></script>
         <script src="~/Scripts/bootstrap.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>*@
-    @*
+        <script src="~/Scripts/bootstrap.min.js"></script>
+    
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>*@
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
 <body>
-    <header>
-        <h1>File Handling Program</h1>
-    </header>
 
-    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-    </button>-->
-    <!-- Modal -->
-    <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -40,15 +33,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="fw-bold" > Are You Sure You want to Delete Selected Records? </p>
+                    <p class="fw-bold"> Are You Sure You want to Delete Selected Records? </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary fw-bold" data-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-primary fw-bold">Yes</button>
+                    <button type="button"  id ="btn-Abort-Delete" class="btn btn-secondary fw-bold" data-dismiss="modal">No</button>
+                    <button type="button"  id ="btn-Proceed-Delete" class="btn btn-primary fw-bold" >Yes</button>
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
+
+    <header>
+        <h1>File Handling Program</h1>
+    </header>
     <section id="menuBar">
         <nav class="Navbar">
             <ul>
@@ -81,8 +78,8 @@
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: true)*@
 
-        <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-        <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 </body>
 </html>

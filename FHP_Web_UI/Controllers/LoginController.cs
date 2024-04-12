@@ -16,7 +16,7 @@ namespace FHP_Web_UI.Controllers
         {
             Resource resource = new Resource();
             Session["ResourceObject"] = resource;
-            cls_User_VO user_VO= new cls_User_VO();
+            cls_User_VO user_VO = new cls_User_VO();
 
             return View(user_VO);
         }
@@ -26,17 +26,18 @@ namespace FHP_Web_UI.Controllers
         {
             cls_ValidateUser_BL obj_User_BL = HttpContext.Application["BLObject_User"] as cls_ValidateUser_BL;
 
-            
+
             if (ModelState.IsValid)
             {
                 if (obj_User_BL.isUserPresent(user))
                 {
-                return RedirectToAction("Index", "Home");
+                    Session["UserPermissions"] = obj_User_BL.GetUserPermission(user);
+                    return RedirectToAction("Index", "Home");
                 }
-                
+
                 return View();
             }
-            
+
             return View();
 
         }

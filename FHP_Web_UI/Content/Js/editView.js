@@ -1,4 +1,5 @@
 ﻿
+alert("coNNECTED eDIT vIEW");
 let serialNo = document.getElementById('SerialNo');
 
 //-----------Input Fields
@@ -47,25 +48,32 @@ function disableInputFields(fields, flag) {
 }
 document.addEventListener('DOMContentLoaded', function () {
     const urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams);
     const action = urlParams.get('buttonClicked');
-    console.log(action);
     currentId = urlParams.get('id');
+
 
     if (action === 'New' || action === 'Update') {
 
+
         if (action === 'New') {
+
+
             serialNo.value = urlParams.get('serialNo');
+            addButton.classList.remove('hidden');
+            addButton.classList.add('visible');
+            clearButton.classList.remove('hidden');
+            clearButton.classList.add('visible');
         }
+
+        else {
+            editButton.classList.remove('hidden');
+            clearButton.classList.remove('hidden');
+
+            editButton.classList.add('visible');
+            clearButton.classList.add('visible');
+        }
+
         serialNo.readOnly = true;
-
-        addButton.classList.remove('hidden');
-        editButton.classList.remove('hidden');
-        clearButton.classList.remove('hidden');
-
-        addButton.classList.add('visible');
-        editButton.classList.add('visible');
-        clearButton.classList.add('visible');
 
     } else if (action === 'View') {
 
@@ -79,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
         next.classList.add('visible');
         last.classList.add('visible');
 
-        disableInputFields(fieldsInForm,true);
+        disableInputFields(fieldsInForm, true);
 
         //-------------Getting Data From XML
 
@@ -146,7 +154,7 @@ function SetValuesIntoFields(object) {
     middleNameField.value = object.MiddleName;
     lastNameField.value = object.LastName;
     console.log('hello' + DOBField.value);
-    DOBField.textContent= formatDate(object.DOB);
+    DOBField.textContent = formatDate(object.DOB);
     currentAddressField.value = object.CurrentAddress;
     educationField.value = object.Education;
     currentCompanyField.value = object.CurrentCompany;
@@ -160,3 +168,25 @@ function formatDate(dateString) {
     const formattedDate = date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
     return formattedDate.replace(/\//g, '-'); // Replace forward slashes with dashes
 }
+
+
+clearButton.addEventListener('click', () => SetDefaultValuesIntoFields());
+
+function SetDefaultValuesIntoFields() {
+    disableInputFields(fieldsInForm, false);
+    prefixField.value = '';
+    firstNameField.value = '';
+    middleNameField.value = '';
+    lastNameField.value = '';
+    DOBField.value = '';
+    currentAddressField.value = '';
+    educationField.value = '';
+    currentCompanyField.value = '';
+    joiningDateField.value = '';
+    disableInputFields(fieldsInForm, true);
+}
+
+
+$(function () {
+    $(".datepicker").datepicker();
+});

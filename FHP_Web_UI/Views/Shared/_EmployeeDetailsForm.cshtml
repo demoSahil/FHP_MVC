@@ -13,6 +13,13 @@
     <meta name="viewport" content="width=device-width" />
     <title>New</title>
     @Styles.Render("~/Content/css/editViewStyle.css")
+    <script>
+        alert('hello');
+    </script>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 <body>
     <div class="header">
@@ -39,7 +46,7 @@
             @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })<br>
 
             <label for="DOB">DOB:</label>
-            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control"})<br>
+            @Html.TextBoxFor(model => model.DOB, new { @class = "form-control datepicker" })<br>
 
             <label for="CurrentAddress">Current Address:</label>
             @Html.TextBoxFor(model => model.CurrentAddress, new { @class = "form-control" })<br>
@@ -62,7 +69,7 @@
 
 
             <label for="JoiningDate">Joining Date:</label>
-            @Html.TextBoxFor(model => model.JoiningDate, new { @class = "form-control"})<br>
+            @Html.TextBoxFor(model => model.JoiningDate, new { @class = "form-control datepicker" })<br>
 
 
             <!-- Buttons -->
@@ -81,5 +88,6 @@
 
     <link href="~/Content/bootstrap-utilities.min.css" rel="stylesheet" />
     @Scripts.Render("~/Content/Js/editView.js")
+
 </body>
 </html>

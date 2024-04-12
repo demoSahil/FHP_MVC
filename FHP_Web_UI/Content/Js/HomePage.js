@@ -62,7 +62,6 @@ function AddClickEventOnCheckBoxes() {
     });
 }
 
-
 /**
  * Selects/Deselects All checkboxes
  */
@@ -93,10 +92,20 @@ function SelectAllCheckbox() {
 const deleteButton = document.getElementById('delete-btn');
 
 /**
+ * Model Dialog Yes Button For Delete
+ */
+const deleteProceedButton = document.getElementById('btn-Proceed-Delete');
+
+/**
+ * Model Dialog No Button For Delete
+ */
+const deleteAbortButton = document.getElementById('btn-Abort-Delete');
+
+/**
  * Event Listener which contains ajax call which Deletes the data present inside {idSelectedByUser} array
  */
 
-deleteButton.addEventListener('click', () => {
+deleteProceedButton.addEventListener('click', () => {
     event.preventDefault();
 
     const xhr = new XMLHttpRequest();
@@ -106,19 +115,29 @@ deleteButton.addEventListener('click', () => {
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = () => {
+            let response = JSON.parse(xhr.responseText);
         console.log(xhr.responseText);
-        let response = JSON.parse(xhr.responseText);
         if (xhr.status == 200 && response.success) {
 
             idSelectedByUser.forEach(serialNo => {
                 DeleteData(serialNo);
                 toastr.success('Employee Deleted Successfully', 'Success');
+                deleteAbortButton.click();
             });
         }
 
         else {
-            console.error('Error deleting item:', xhr.statusText);
+            if (response.errorMessage) {
+                toastr.error(response.errorMessage, 'Failed');
+                deleteAbortButton.click();
+            }
+
+            else {
+                console.error('Error deleting item:', xhr.statusText);
+            }
         }
+
+
     }
     xhr.send(idsJSON);
 });
@@ -210,7 +229,7 @@ function SortDescending(ColumnName) {
 
 /**
  * Render the sorted Data in UI
- * @param {An Array that holds sorted Data} sortedData
+ * @param {An Array that holds sorted Data} 
  */
 function RenderData(data) {
     let tableData = document.getElementById('tableData');

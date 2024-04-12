@@ -72,6 +72,8 @@ namespace FHP_BL
         /// <returns>True if the employee data is valid, otherwise false.</returns>
         private bool isValid(cls_Employee_VO employee, Resource resource)
         {
+
+
             bool isValid = true;
 
             //--------------- Validating Empty fields--------------\\
