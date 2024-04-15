@@ -7,11 +7,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Unity;
 
 namespace FHP_Web_UI.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly cls_ValidateUser_BL _validateUserBL;
+        public LoginController()
+        {
+            _validateUserBL = UnityConfig.Container.Resolve<cls_ValidateUser_BL>("validateUserBL");
+
+
+
+        }
         public ActionResult Index()
         {
             Resource resource = new Resource();
@@ -24,14 +33,11 @@ namespace FHP_Web_UI.Controllers
         [HttpPost]
         public ActionResult Index(cls_User_VO user)
         {
-            cls_ValidateUser_BL obj_User_BL = HttpContext.Application["BLObject_User"] as cls_ValidateUser_BL;
-
-
             if (ModelState.IsValid)
             {
-                if (obj_User_BL.isUserPresent(user))
+                if (_validateUserBL.isUserPresent(user))
                 {
-                    Session["UserPermissions"] = obj_User_BL.GetUserPermission(user);
+                    Session["UserPermissions"] = _validateUserBL.GetUserPermission(user);
                     return RedirectToAction("Index", "Home");
                 }
 

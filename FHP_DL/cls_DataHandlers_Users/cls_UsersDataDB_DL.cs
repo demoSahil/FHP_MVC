@@ -28,7 +28,7 @@ namespace FHP_DL
         /// <returns>True if authentication is successful; false otherwise.</returns>
         public bool AuthenticateUser(cls_User_VO user)
         {
-            string connectionString = "Data Source=SAHIL;Database=FHP;Integrated Security=True;TrustServerCertificate=True";
+            string connectionString = "Data Source=DEV;Database=FHP;Integrated Security=True;TrustServerCertificate=True";
             try
             {
                 using (SqlConnection cnn = new SqlConnection(connectionString))

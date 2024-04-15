@@ -13,11 +13,17 @@ using System.Xml.Linq;
 using FHP_Web_UI.Helper;
 using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
+using Unity;
 
 namespace FHP_Web_UI.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly cls_DataProcessing_BL _dataProcessBL;
+        public HomeController()
+        {
+            _dataProcessBL = UnityConfig.Container.Resolve<cls_DataProcessing_BL>("dataProcessingBL");
+        }
 
         /// <summary>
         /// Action for Deleting Records
@@ -29,7 +35,6 @@ namespace FHP_Web_UI.Controllers
         {
             bool isUserValid = true;
             bool userCanDelete = false;
-            cls_DataProcessing_BL obj_Employee_BL = HttpContext.Application["BLObject_Employee"] as cls_DataProcessing_BL;
             Dictionary<string, bool> userPermissions = Session["UserPermissions"] as Dictionary<String, bool>;
             userCanDelete = userPermissions["CanDelete"];
 
@@ -38,9 +43,9 @@ namespace FHP_Web_UI.Controllers
                 foreach (string serialNo in ids)
                 {
                     long serial = long.Parse(serialNo);
-                    cls_Employee_VO empToBeDelete = obj_Employee_BL.GetEmployees().Find(s => s.SerialNo == serial);
+                    cls_Employee_VO empToBeDelete = _dataProcessBL.GetEmployees().Find(s => s.SerialNo == serial);
 
-                    if (!obj_Employee_BL.DeleteEmployee(empToBeDelete, Session["ResourceObject"] as Resource))
+                    if (!_dataProcessBL.DeleteEmployee(empToBeDelete, Session["ResourceObject"] as Resource))
                     {
                         isUserValid = false;
                     }
@@ -63,10 +68,9 @@ namespace FHP_Web_UI.Controllers
         /// <returns> A view that represents employee information in from of table</returns>
         public ActionResult Index()
         {
-            cls_DataProcessing_BL obj_Employee_BL = HttpContext.Application["BLObject_Employee"] as cls_DataProcessing_BL;
 
             // Getting all the employees list
-            List<cls_Employee_VO> employeesList = obj_Employee_BL.GetEmployees();
+            List<cls_Employee_VO> employeesList = _dataProcessBL.GetEmployees();
 
             var model = new
             {
@@ -103,8 +107,7 @@ namespace FHP_Web_UI.Controllers
         [HttpPost]
         public ActionResult New(cls_Employee_VO employee)
         {
-            cls_DataProcessing_BL obj_Employee_BL = HttpContext.Application["BLObject_Employee"] as cls_DataProcessing_BL;
-            if (obj_Employee_BL.SaveIntoDB(employee, Session["ResourceObject"] as Resource))
+            if (_dataProcessBL.SaveIntoDB(employee, Session["ResourceObject"] as Resource))
             {
                 TempData["message"] = "Employee Added Successfully";
                 return RedirectToAction("Index");
@@ -256,9 +259,8 @@ namespace FHP_Web_UI.Controllers
         [HttpPost]
         public ActionResult Update(cls_Employee_VO updatedEmp)
         {
-            cls_DataProcessing_BL obj_Employee_BL = HttpContext.Application["BLObject_Employee"] as cls_DataProcessing_BL;
             updatedEmp.editMode = 1;
-            if (obj_Employee_BL.SaveIntoDB(updatedEmp, Session["ResourceObject"] as Resource))
+            if (_dataProcessBL.SaveIntoDB(updatedEmp, Session["ResourceObject"] as Resource))
             {
                 TempData["message"] = "Employee Updated Successfully";
                 return RedirectToAction("Index");
