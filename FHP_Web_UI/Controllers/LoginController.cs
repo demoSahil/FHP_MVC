@@ -41,7 +41,17 @@ namespace FHP_Web_UI.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                return View();
+
+            }
+
+            if (user.ErrorMessage.Contains("password"))
+            {
+                ModelState.AddModelError("Password", user.ErrorMessage);
+            }
+
+            else
+            {
+                ModelState.AddModelError("UserName", user.ErrorMessage);
             }
 
             return View();

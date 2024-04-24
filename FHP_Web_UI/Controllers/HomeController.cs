@@ -17,7 +17,8 @@ using Unity;
 
 namespace FHP_Web_UI.Controllers
 {
-    public class HomeController : Controller
+    [Authorize]
+    public  class HomeController : Controller
     {
         private readonly cls_DataProcessing_BL _dataProcessBL;
         public HomeController()
@@ -31,6 +32,8 @@ namespace FHP_Web_UI.Controllers
         /// <param name="ids"> an array of serial No to delete</param>
         /// <returns> An success true/false describes that records are deleed or not </returns>
         [HttpPost]
+        [Authorize(Roles ="ADMIN,SELF,SUPERADMIN")]
+
         public ActionResult Delete(string[] ids)
         {
             bool isUserValid = true;
@@ -92,6 +95,7 @@ namespace FHP_Web_UI.Controllers
         /// Action method which creates a New user
         /// </summary>
         /// <returns> A view which is a form which collects the data from user input and bind it into a model</returns>
+        [Authorize(Roles = "ADMIN,SELF,SUPERADMIN")]
         public ActionResult New()
         {
             cls_Employee_VO newEmployee = new cls_Employee_VO();
@@ -105,6 +109,7 @@ namespace FHP_Web_UI.Controllers
         /// <param name="employee"></param>
         /// <returns> Redirects to the Action Index </returns>
         [HttpPost]
+        [Authorize(Roles = "ADMIN,SELF,SUPERADMIN")]
         public ActionResult New(cls_Employee_VO employee)
         {
             if (_dataProcessBL.SaveIntoDB(employee, Session["ResourceObject"] as Resource))
@@ -122,6 +127,7 @@ namespace FHP_Web_UI.Controllers
         /// </summary>
         /// <param name="columnName"> Represents the column based on sorting is to be done </param>
         /// <returns> The sorted data which is to be sent as repsonse to the caller to display the sorted data</returns>
+        
         public ActionResult SortAsc(string columnName)
         {
             cls_XMLHelper xmlHelper = Session["xmlHelperObject"] as cls_XMLHelper;
@@ -224,6 +230,7 @@ namespace FHP_Web_UI.Controllers
         /// </summary>
         /// <param name="id">The serial number of the employee to update.</param>
         /// <returns>The view for updating employee details.</returns>
+        [Authorize(Roles = "ADMIN,SELF,SUPERADMIN")]
         public ActionResult Update(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -257,6 +264,7 @@ namespace FHP_Web_UI.Controllers
         /// <param name="updatedEmp">The updated employee details.</param>
         /// <returns>Redirects to the index page if the update is successful; otherwise, returns the view for updating.</returns>
         [HttpPost]
+        [Authorize(Roles = "ADMIN,SELF,SUPERADMIN")]
         public ActionResult Update(cls_Employee_VO updatedEmp)
         {
             updatedEmp.editMode = 1;
@@ -267,7 +275,7 @@ namespace FHP_Web_UI.Controllers
             }
 
             TempData["message"] = "Employee Not Updated ";
-            return View();
+            return View("Error");
 
         }
 
@@ -312,6 +320,11 @@ namespace FHP_Web_UI.Controllers
             cls_XMLHelper xmlHelper = Session["xmlHelperObject"] as cls_XMLHelper;
             List<cls_Employee_VO> employeesList = xmlHelper.ParseEmployeesFromXML(Session["xmlFilePath"] as string);
             return Json(employeesList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult About()
+        {
+            return View();
         }
     }
 }

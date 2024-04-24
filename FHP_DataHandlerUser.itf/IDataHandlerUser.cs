@@ -25,5 +25,7 @@ namespace FHP_DL
         /// <param name="user">The user data to be added.</param>
         void AddUserData(cls_User_VO user);
 
+        string[] GetAllRoles(string userName);
+
     }
 }

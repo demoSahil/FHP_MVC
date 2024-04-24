@@ -1,47 +1,52 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+/* loginStyle.css */
 
+/* Center the login container */
 #login-container {
-    background-color: #8CB9BD;
+    margin: 50px auto; /* Auto margin for centering horizontally */
+    max-width: 400px;
     padding: 20px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
 }
 
-#login-container h2 {
+
+/* Center the login form */
+.form-group {
     margin-bottom: 20px;
 }
 
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    /* Style the labels */
+    .form-group label {
+        font-weight: bold;
+    }
+
+/* Style the input fields */
+.form-control {
     border: 1px solid #ccc;
     border-radius: 3px;
-    box-sizing: border-box;
 }
 
-input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #ECB159;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+#login-container > button {
+    width: 4vw;
+}
+/* Style the login button */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
 }
 
-input[type="submit"]:hover {
-    background-color: #0056b3;
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+/* Error message style */
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
 }

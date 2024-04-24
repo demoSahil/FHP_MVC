@@ -1,11 +1,119 @@
 ﻿@{
-    ViewBag.Title = "About";
-    
+    Layout = null;
 }
-<main aria-labelledby="title">
-    
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <p>Use this area to provide additional information.</p>
-</main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Vertex Infosoft</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+            header h1 {
+                text-align: center;
+            }
+
+        nav ul {
+            list-style: none;
+            text-align: center;
+        }
+
+            nav ul li { 
+                display: inline;
+                margin: 0 10px;
+            }
+
+                nav ul li a {
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+        section {
+            padding: 20px 0;
+        }
+
+            section h2 {
+                text-align: center;
+            }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>About Vertex Infosoft Private Limited</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Clients</a></li>
+                <li><a href="#">About Vertex</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section id="intro">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>Headquartered in Mohali, India, the company was incorporated in the year 1999. Today, with over 20 years of experience, we are one of the fastest-growing companies in the marine IT field, serving many top shipping companies around the globe.</p>
+            <p>At Vertex Infosoft Private Limited, we specialize in providing comprehensive and integrated Ship Management Software titled “SMMS – Ship Maintenance & Management System,” which has been successfully implemented on over 1500 vessels worldwide.</p>
+            <h3>Our Business Offerings</h3>
+            <ul>
+                <li>Development of Software Applications</li>
+                <li>Creation of PMS & Inventory Databases for Vessels</li>
+                <li>24x7 Technical Support</li>
+                <li>On-Site Implementations and Trainings</li>
+                <li>Remote and On-board I.T. Services</li>
+                <li>Documents Digitization</li>
+            </ul>
+            <h3>Our Team</h3>
+            <p>With a workforce of over 120 dedicated professionals, including 20+ experienced marine engineers, we possess the expertise and commitment to deliver exceptional solutions and services to our clients.</p>
+            <h3>Why Choose Vertex?</h3>
+            <p>At Vertex Infosoft Private Limited, we prioritize collaboration, positivity, and client satisfaction. Here are some reasons why clients trust us:</p>
+            <ul>
+                <li>Cost-Effective Products & Services</li>
+                <li>Customized Software Development</li>
+                <li>Resourcefulness</li>
+                <li>Flexibility</li>
+                <li>Commitment to Clients</li>
+                <li>We go the extra mile in all the services</li>
+            </ul>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Vertex Infosoft Private Limited</p>
+        </div>
+    </footer>
+</body>
+</html>

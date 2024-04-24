@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,16 +15,19 @@ namespace FHP_ValueObject
         /// <summary>
         /// Gets or sets the username for the User 
         /// </summary>
+        [Required(ErrorMessage ="Username is Required")]
         public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets the password for the user
         /// </summary>
+         [Required(ErrorMessage ="Password is Required Field")]
         public string Password { get; set; }
 
         /// <summary>
         /// Gets or sets the user role for the user
         /// </summary>
+        
         public string UserRole { get; set; }
 
         /// <summary>

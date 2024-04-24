@@ -1,6 +1,4 @@
-﻿
-alert("coNNECTED eDIT vIEW");
-let serialNo = document.getElementById('SerialNo');
+﻿let serialNo = document.getElementById('SerialNo');
 
 //-----------Input Fields
 const serialNoField = document.getElementById('SerialNo');

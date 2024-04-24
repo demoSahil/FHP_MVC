@@ -45,14 +45,14 @@ namespace FHP_Web_UI
                     SetPropertyValue(validateUser_BL, "UserDataObject", CreateInstance(assemblyDL, "FHP_DL.cls_UserDataFF_DL"));
                 }
 
-                // Register instance with Unity container with ContainerControlledLifetimeManager
+                // Register instance with Unity container
                 _container.RegisterInstance<cls_ValidateUser_BL>("validateUserBL", (cls_ValidateUser_BL)validateUser_BL, new ContainerControlledLifetimeManager());
                 _container.RegisterInstance<cls_DataProcessing_BL>("dataProcessingBL", (cls_DataProcessing_BL)dataProcessing_BL, new ContainerControlledLifetimeManager());
 
             }
             catch (Exception ex)
             {
-                // Handle or log exceptions appropriately
+                throw new Exception("Exception at DI ",ex);
             }
         }
 

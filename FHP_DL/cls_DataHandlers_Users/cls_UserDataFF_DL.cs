@@ -103,6 +103,11 @@ namespace FHP_DL
 
             return lines;
         }
+
+        string[] IDataHandlerUser.GetAllRoles(string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>

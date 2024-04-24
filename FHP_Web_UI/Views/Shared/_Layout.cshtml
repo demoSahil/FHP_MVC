@@ -49,11 +49,11 @@
     <section id="menuBar">
         <nav class="Navbar">
             <ul>
-                <li> <a href="@Url.Action("New", "Home", new{buttonClicked="New",serialNo=ViewBag.LastSerialNo})"> New</a></li>
+                <li> <a id="new-link"href="@Url.Action("New", "Home", new{buttonClicked="New",serialNo=ViewBag.LastSerialNo})"> New</a></li>
                 <li><a id="update-btn" data-url="@Url.Action("Update", "Home", new {buttonClicked="Update",serialNo="13"})">Update</a></li>
                 <li><a id="view-link" data-url="@Url.Action("View", "Home", new {buttonClicked="View"})">View</a></li>
                 <li><a href="#" id="delete-btn" data-toggle="modal" data-target="#exampleModal">Delete</a></li>
-                <li><a href="aboutUs.html">About</a></li>
+                <li><a href="@Url.Action("About", new {})">About</a></li>
                 <li><a onclick="ClearSearchAndFilter()">Clear Search/Filter</a></li>
             </ul>
 

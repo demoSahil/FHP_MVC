@@ -58,7 +58,7 @@ namespace FHP_DL
                                 }
                                 else
                                 {
-                                    user.ErrorMessage = "Credential Not Valid";
+                                    user.ErrorMessage = "Incorrect password";
                                     return false;
                                 }
                             }
@@ -72,6 +72,8 @@ namespace FHP_DL
             {
                 throw new cls_DataLayerException("Error while Authenticating User!", ex);
             }
+
+            user.ErrorMessage = "Incorrect username";
             return false;
         }
 
@@ -81,7 +83,7 @@ namespace FHP_DL
         /// <param name="user">User object containing username, password and userRole</param>
         public void AddUserData(cls_User_VO user)
         {
-            string connectionString = "Data Source=SAHIL;Database=FHP;Integrated Security=True;TrustServerCertificate=True";
+            string connectionString = "Data Source=DEV;Database=FHP;Integrated Security=True;TrustServerCertificate=True";
             try
             {
                 using (SqlConnection cnn = new SqlConnection(connectionString))
@@ -105,6 +107,30 @@ namespace FHP_DL
             catch (SqlException ex)
             {
                 throw new cls_DataLayerException("Error while adding user!", ex);
+            }
+        }
+
+        public string[] GetAllRoles(string userName)
+        {
+            using (SqlConnection cnn = new SqlConnection(connectionString))
+            {
+                cnn.Open();
+                string query = "SELECT UserRole FROM users WHERE UserName=@name";
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.AddWithValue("name", userName);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<String> roles = new List<String>();
+                        while (reader.Read())
+                        {
+                            roles.Add(reader["UserType"] as string);
+
+                        }
+                        return roles.ToArray();
+                    }
+                }
             }
         }
 

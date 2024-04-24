@@ -146,11 +146,11 @@ namespace FHP_BL
             DateTime joiningDate = employee.JoiningDate;
             int joiningYear = joiningDate.Year;
 
-            if (joiningYear < dobYear || joiningYear - dobYear <= 18 || joiningYear - dobYear >= 90)
+          /*  if (joiningYear < dobYear || joiningYear - dobYear <= 18 || joiningYear - dobYear >= 90)
             {
                 isValid = false;
                 employee.ValidationMessage = (byte)Resource.ValidationMessage.AgeLimit;
-            }
+            }*/
             return isValid;
         }
 

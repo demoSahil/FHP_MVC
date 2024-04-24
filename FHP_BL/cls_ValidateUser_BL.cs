@@ -121,5 +121,10 @@ namespace FHP_BL
 
             return permissions;
         }
+
+        public string[] GetAllRoles(string userName)
+        {
+            return dataHandlerUser.GetAllRoles(userName);
+        }
     }
 }

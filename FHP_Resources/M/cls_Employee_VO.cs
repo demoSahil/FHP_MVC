@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FHP_ValueObject
 {
@@ -11,21 +12,27 @@ namespace FHP_ValueObject
         /// <summary>
         /// Gets or sets the serial number of the employee.
         /// </summary>
+        [Key]
         public long SerialNo { get; set; }
 
         /// <summary>
         /// Gets or sets the first name of the employee.
         /// </summary>
+        [Required(ErrorMessage ="First Name Is Required Field")]
+        [MaxLength(50,ErrorMessage ="First Name cannot exceed 50 characters")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Gets or sets the last name of the employee.
         /// </summary>
+        [Required(ErrorMessage = "Last Name Is Required Field")]
+        [MaxLength(50, ErrorMessage = "Last Name cannot exceed 50 characters")]
         public string LastName { get; set; }
 
         /// <summary>
         /// Gets or sets the middle name of the employee.
         /// </summary>
+        [MaxLength(25, ErrorMessage = "Middle Name cannot exceed 25 characters")]
         public string MiddleName { get; set; }
 
         /// <summary>
@@ -51,6 +58,7 @@ namespace FHP_ValueObject
         /// <summary>
         /// Gets or sets a value indicating whether the employee is deleted.
         /// </summary>
+        
         public bool isDeleted { get; set; }
 
         /// <summary>

@@ -4,7 +4,7 @@
  * Node List of all checkboxes other than master checkbox
  */
 let checkboxes = document.querySelectorAll('.selectedRows');
-AddClickEventOnCheckBoxes();
+AddClickEventOnCheckBoxes(checkboxes);
 
 /**
  * Master checkbox element which selects/deselects all the other checkboxes
@@ -21,11 +21,16 @@ let idSelectedByUser = [];
  */
 let updateButton = document.getElementById('update-btn');
 
+/**
+ * Represents the view link element at home page
+ */
+let viewLink = document.getElementById('view-link');
+
 
 /**
  *  Adds an Event Listener to checkboxes which Add/remove Id in {idselectedByUser} array 
  */
-function AddClickEventOnCheckBoxes() {
+function AddClickEventOnCheckBoxes(checkboxes) {
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
@@ -43,21 +48,20 @@ function AddClickEventOnCheckBoxes() {
             }
 
             //------------Handling the update Button part
-            if (idSelectedByUser.length > 1) {
-                //disbaling the update button
-                // give a pop up which shows cannot delete more than one records
+            if (idSelectedByUser.length == 1) {
 
-                console.log("cannot delete mroe than 1 records");
+                updateButton.style.pointerEvents = '';
+                viewLink.style.pointerEvents = '';
 
-            }
+
+            }  // then only update/View
 
             else {
-                /*  let url = updateButton.getAttribute('date-url');
-  
-                  url = url + '&id=' + idSelectedByUser[0];
-                  updateButton.setAttribute('href', url);*/
+                updateButton.style.pointerEvents = 'none';
+                viewLink.style.pointerEvents = 'none';
+            } //disable updateView
 
-            }
+
         })
     });
 }
@@ -115,7 +119,7 @@ deleteProceedButton.addEventListener('click', () => {
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.onload = () => {
-            let response = JSON.parse(xhr.responseText);
+        let response = JSON.parse(xhr.responseText);
         console.log(xhr.responseText);
         if (xhr.status == 200 && response.success) {
 
@@ -149,10 +153,16 @@ deleteProceedButton.addEventListener('click', () => {
 function DeleteData(id) {
     idSelectedByUser = idSelectedByUser.filter(item => item !== id);
     const checkBox = document.getElementById(id);
+
     const parent = checkBox.parentElement;
     const rowToDelete = parent.parentElement;
-    rowToDelete.remove();
     rowToDelete.textContent = "";
+    checkBox.remove();
+    rowToDelete.remove();
+    rowToDelete.remove();
+    checkboxes = document.querySelectorAll('.selectedRows');
+    AddClickEventOnCheckBoxes(checkboxes);
+    console.log(idSelectedByUser);
 }
 
 //-------- Handling Sorting functionality
@@ -208,7 +218,7 @@ function SortAscending(ColumnName) {
 }
 
 /**
- * Make an Ajax request to /Home/SortDesc?columnName=@{ColumnName} which return the sorted data as resonse and this function will render it to UI
+ * Make an Ajax request to /Home/SortDesc?columnName=@{ColumnName} which return the sorted data as response and this function will render it to UI
  * @param {Represents Column name on which sorting is to be done} ColumnName
  */
 function SortDescending(ColumnName) {
@@ -255,7 +265,7 @@ function RenderData(data) {
 
     tableData.innerHTML = str;
     checkboxes = document.querySelectorAll('.selectedRows');
-    AddClickEventOnCheckBoxes();
+    AddClickEventOnCheckBoxes(checkboxes);
 }
 /**
  * Formats the Date according to desired format[dd-MM-YYYY]
@@ -348,8 +358,14 @@ document.getElementById('view-link').onclick = () => {
     var url = "/Home/Pagination?buttonClicked=View&id=" + idSelectedByUser[0];
     window.location.href = url;
 }
-
+/**
+ * Search Bar element place at top of table
+ */
 const searchBar = document.getElementById('search-bar');
+
+/**
+ * Array Object represents employees Data
+ */
 let employeesData = [];
 GetEmployeesData();
 searchBar.addEventListener('input', () => {
@@ -381,6 +397,9 @@ searchBar.addEventListener('input', () => {
     RenderData(foundEmployees);
 });
 
+/**
+ * Gets Employees Data And store it into employeesData array Object by making an AJAX Request[GET] To /HOME/EmployeesData
+ */
 function GetEmployeesData() {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '/Home/EmployeesData', true);
